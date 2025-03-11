@@ -14,22 +14,16 @@ cameras: <br>
 <script>
 const listEl = document.querySelector("ul")
 
-const renderOptions = (currentDeviceId, devices) => {  
+function showCameras() {  
   listEl.innerHTML = ""
-    
-  devices
-    .filter(deviceInfo => deviceInfo.kind === "videoinput")    
-    .map(({ label, deviceId }) => {
-      const el = document.createElement('li')
-      
-      if (deviceId == currentDeviceId)
-        el.innerHTML = `<a href="#" onclick="selectCamera('${deviceId}')">${label}</a> [PREFERRED]`
-      else
-        el.innerHTML = `<a href="#" onclick="selectCamera('${deviceId}')">${label}</a>`
-        
-      return el
-    })
-    .forEach(el => listEl.appendChild(el))
+
+  let devices = await navigator.mediaDevices.enumerateDevices();
+  let cameras = devices.filter(device => device.kind === "videoinput");
+  cameras.forEach(({ label, deviceId }) => {
+    const el = document.createElement('li');
+    el.innerHTML = `${label}`; // Use template literals correctly
+    listEl.appendChild(el);
+  });
 }
 </script>
 </body>

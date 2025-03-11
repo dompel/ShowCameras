@@ -12,19 +12,21 @@ cameras: <br>
 <br>
 
 <script>
-const listEl = document.querySelector("ul")
-
-function showCameras() {  
-  listEl.innerHTML = ""
-
-  let devices = await navigator.mediaDevices.enumerateDevices();
-  let cameras = devices.filter(device => device.kind === "videoinput");
-  cameras.forEach(({ label, deviceId }) => {
-    const el = document.createElement('li');
-    el.innerHTML = `${label}`; // Use template literals correctly
-    listEl.appendChild(el);
-  });
-}
+  const listEl = document.querySelector("ul")
+  
+  async function showCameras() {  
+    listEl.innerHTML = ""
+  
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    let cameras = devices.filter(device => device.kind === "videoinput");
+    cameras.forEach(({ label, deviceId }) => {
+      const el = document.createElement('li');
+      el.innerHTML = `${label}`; // Use template literals correctly
+      listEl.appendChild(el);
+    });
+  }
+  
+  showCameras();
 </script>
 </body>
 </html>
